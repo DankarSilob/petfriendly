@@ -1,0 +1,47 @@
+{% extends "main/base.html" %}
+{% block jscripts %}
+		<script type="text/javascript">
+			var map;
+
+			$(document).ready(function() {
+				var mapOptions = {
+					center: new google.maps.LatLng({{lugar.latitud}}, {{lugar.longitud}}),
+					zoom: 17,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				map = new google.maps.Map(document.getElementById("map-detalle"),
+					mapOptions
+				);
+				loadSpots(map);
+			});
+
+			function loadSpots()
+			{	
+				var image = '../../static/img/lugares.png';
+				var myLatlng = new google.maps.LatLng({{lugar.latitud}}, {{lugar.longitud}});
+				var marker = new google.maps.Marker({
+					position: myLatlng,
+					title:"{{lugar.nombre}}",
+					icon:image
+				});
+				/*var contentString = '<strong>{{lugar.nombre}}</strong><br />{{lugar.descripcion}}';
+				var infowindow = new google.maps.InfoWindow({
+					content: contentString
+				});
+				google.maps.event.addListener(marker,'click',function(){
+					infowindow.open(map,marker);
+				});*/
+				marker.setMap(map);
+			}
+		</script>
+{% endblock %}
+{% block contenido %}
+			<div id="detalles">
+				<h1>{{ lugar.nombre }}</h1>
+				<address>{{ lugar.direccion}}</address>
+				<p>{% for categoria in categorias %}<small><a href="/{{ categoria.categoria }}/">{{ categoria.categoria }} </a></small>{% endfor %}</p>
+				<p>{{ lugar.descripcion}}</p>
+			</div>
+			<div id="map-detalle"></div>
+			<div class="clear"></div>
+{% endblock %}

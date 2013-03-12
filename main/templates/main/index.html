@@ -1,0 +1,73 @@
+{% extends "main/base.html" %}	
+		{% block jscripts %}
+		<script type="text/javascript">
+			var map;
+			var lat;
+			var long
+			$(document).ready(function() {
+				if(navigator.geolocation)
+				{
+					navigator.geolocation.getCurrentPosition(function(position){
+						lat = position.coords.latitude;
+						long = position.coords.longitude
+						var mapOptions = {
+						center: new google.maps.LatLng(lat, long),
+						zoom: 15,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+						};
+						map = new google.maps.Map(document.getElementById("map-promo"),
+							mapOptions
+						);
+						var image = '../../static/img/youRhere.png';
+						var myLatlng = new google.maps.LatLng(lat, long);
+						var marker = new google.maps.Marker({
+	    					position: myLatlng,
+	    					title:"Tú estás aquí",
+	    					icon: image
+						});
+						marker.setMap(map);
+						loadSpots(map);
+					})
+				}				
+			});
+
+			function loadSpots()
+			{	
+				{% for lugar in lugares %}
+					var image = '../../static/img/lugares.png';
+					var myLatlng = new google.maps.LatLng({{lugar.latitud}}, {{lugar.longitud}});
+					var marker{{lugar.id}} = new google.maps.Marker({
+    					position: myLatlng,
+    					title:"{{lugar.nombre}}",
+    					icon:image
+					});
+					var contentString = '<strong>{{lugar.nombre}}</strong>';
+					var infowindow{{lugar.id}} = new google.maps.InfoWindow({
+						content: contentString
+					});
+					google.maps.event.addListener(marker{{lugar.id}},'click',function(){
+						infowindow{{lugar.id}}.open(map,marker{{lugar.id}});
+					});
+					marker{{lugar.id}}.setMap(map);
+    				{% endfor %}
+			}
+		</script>
+		{% endblock %}
+		{% block contenido %}
+			<div id="bienvenida">
+				<h2 class="primero">Places near you right now</h2>
+				<img src="../../static/img/mitotero-01.png" />
+				<div id="map-promo"></div>
+				<h2 class="ultimo">You're near this places:</h2>
+				{% if lugares %}
+				<ul class="cercanos">
+					{% for lugar in lugares %}
+					<li><a href="/{{ lugar.id }}/" class="icn-{{ lugar.id }}">{{ lugar.nombre }}</a></li>
+					{% endfor %}
+					<div class="clear"></div>
+				</ul>
+				{% else %}
+				<p>No places are available <strong>:(</strong></p>
+				{% endif %}
+			</div>
+		{% endblock %}

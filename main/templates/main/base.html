@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>PetFriend.ly</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/estilo.css" />
+		{% block css %}{% endblock %}
+		<script type="text/javascript" src="/static/js/jquery.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD76auzT859-yS98eM61vizOCq63qlsAPo&sensor=true"></script>
+		{% block jscripts %}{% endblock %}
+	</head>
+	<body>
+		<div id="columna">
+			<div id="encabezado">
+				<a href="http://localhost:8000"><img src="../../static/img/logo-main.png" /></a>
+				<form method="post" action="" id="search">
+					<label for="query">What are you looking for?</label>
+					<input type="search" name="query" id="query" placeholder="Eg. day care, parks, food, etc." tabindex="1" />
+					<input type="submit" value="Find!" tabindex="2" />
+				</form>
+			</div>
+			{% block contenido %}{% endblock %}
+		</div>
+		<div id="pie">
+			<div>
+				<h5>All rights reserver &copy; {% now "Y" %} MxlDev</h5>
+				<p><a href="#">About us</a> | <a href="#">Help</a></p>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</body>
+</html>
