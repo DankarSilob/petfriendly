@@ -93,7 +93,14 @@ text-shadow:none;}
 #detalles address{color:#45a7cb;
 font-size:0.85em;
 margin:0.5em 0 0 0;}
-#detalles p{margin:0.75em 0 0 0;
+#detalles h2{color:#45a7cb;
+font-family:Georgia,serif;
+font-size:1em;
+margin:0.4em 0 0 0;}
+#detalles dt{font-weight:bold;
+font-size:0.85em;
+margin:1.5em 0 0 0;}
+#detalles p,#detalles dd{margin:0.5em 0 0 0;
 line-height:1.5em;
 font-size:0.85em;}
 
