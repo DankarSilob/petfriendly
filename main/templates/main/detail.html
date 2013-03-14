@@ -39,7 +39,7 @@
 			<div id="detalles">
 				<h1>{{ lugar.nombre }}</h1>
 				<address>{{ lugar.direccion}}</address>
-				<p>{% for categoria in categorias %}<small><a href="/{{ categoria.categoria }}/">{{ categoria.categoria }} </a></small>{% endfor %}</p>
+				<p>{% for categoria in categorias %}<small><a href="/tag/{{ categoria.categoria }}/">{{ categoria.categoria }} </a></small>{% endfor %}</p>
 				<p>{{ lugar.descripcion}}</p>
 			</div>
 			<div id="map-detalle"></div>
