@@ -8,6 +8,7 @@
 		{% block css %}{% endblock %}
 		<script type="text/javascript" src="/static/js/jquery.js"></script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD76auzT859-yS98eM61vizOCq63qlsAPo&sensor=true"></script>
+		<script src="http://connect.facebook.net/en_US/all.js"></script>
 		{% block jscripts %}{% endblock %}
 	</head>
 	<body>
@@ -19,6 +20,34 @@
 					<input type="search" name="query" id="query" placeholder="Eg. day care, parks, food, etc." tabindex="1" />
 					<input type="submit" value="Find!" tabindex="2" />
 				</form>
+				<div id="fb-root"></div>
+				<fb:login-button autologoutlink="true" onlogin="loginFB();">
+				</fb:login-button>
+				<script language="javascript" type="text/javascript">
+    			FB.init({
+        			appId: '441076549300291',
+        			status: true, 
+        			cookie: true, 
+        			xfbml: true
+    			});
+    			FB.getLoginStatus(function(response) {
+  					if (response.status === 'connected') {
+  					} else if (response.status === 'not_authorized') {
+    				// not_authorized
+  					} else {
+    				// not_logged_in
+  					}
+ 				});    
+
+    			function loginFB()
+    			{
+    				FB.api("/me",
+                	function (response) {
+                    	alert('Name is ' + response.email);
+                	});             			
+
+    			}
+				</script>
 			</div>
 			{% block contenido %}{% endblock %}
 		</div>
